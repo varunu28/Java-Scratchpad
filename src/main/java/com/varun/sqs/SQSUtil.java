@@ -29,9 +29,12 @@ public class SQSUtil {
      * create the queue if it doesn't exist.
      */
     public void createQueue() {
-        if (getQueueUrl() != null) {
+        try {
+            getQueueUrl();
             this.logger.info(String.format("Queue with name %s already exists", this.queueName));
             return;
+        } catch (QueueDoesNotExistException e) {
+            this.logger.info(String.format("Queue with name %s doesn't exists. Creating new queue", this.queueName));
         }
         try {
             CreateQueueRequest createQueueRequest = new CreateQueueRequest(this.queueName)
@@ -91,16 +94,11 @@ public class SQSUtil {
         sqs.deleteMessage(getQueueUrl(), message.getReceiptHandle());
     }
 
-    private String getQueueUrl() {
+    private String getQueueUrl() throws QueueDoesNotExistException {
         if (this.queueUrl != null) {
             return this.queueUrl;
         }
-        try {
-            this.queueUrl = sqs.getQueueUrl(this.queueName).getQueueUrl();
-            return this.queueUrl;
-        } catch (QueueDoesNotExistException e) {
-            this.logger.info(String.format("Queue with name %s doesn't exists.", this.queueName));
-        }
-        return null;
+        this.queueUrl = sqs.getQueueUrl(this.queueName).getQueueUrl();
+        return this.queueUrl;
     }
 }
