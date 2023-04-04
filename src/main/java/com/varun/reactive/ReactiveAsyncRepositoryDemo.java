@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReactiveDemo {
+import static com.varun.reactive.BlockUtil.blockForTermination;
+
+public class ReactiveAsyncRepositoryDemo {
     public static void main(String[] args) throws IOException {
         PersonRepositorySync personRepositorySync = new PersonRepositorySync();
         populatePeopleSync(personRepositorySync);
@@ -37,8 +39,7 @@ public class ReactiveDemo {
                 .subscribeOn(Schedulers.parallel())
                 .subscribe(ts -> System.out.println("Total salary(ASYNC): " + ts));
 
-        System.out.println("Enter to terminate the program");
-        new BufferedReader(new InputStreamReader(System.in)).readLine();
+        blockForTermination();
     }
 
     private static void populatePeopleAsync(PersonRepositoryAsync personRepositoryAsync) {
