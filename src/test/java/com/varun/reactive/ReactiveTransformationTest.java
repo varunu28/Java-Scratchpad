@@ -1,6 +1,6 @@
 package com.varun.reactive;
 
-import com.varun.reactive.ReactiveTransformation.User;
+import com.varun.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
