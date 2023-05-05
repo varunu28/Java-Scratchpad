@@ -19,6 +19,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
     implementation 'io.projectreactor:reactor-core:3.5.4'
     implementation 'io.projectreactor:reactor-test:3.5.4'
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.21'
 }
 
 test {
