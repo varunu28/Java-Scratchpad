@@ -1,13 +1,13 @@
 package com.varunu28.scratchpad.reflection.configloader;
 
+import com.varunu28.scratchpad.reflection.configloader.data.GameConfig;
+import com.varunu28.scratchpad.reflection.configloader.data.UserInterfaceConfig;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.util.Scanner;
-import com.varunu28.scratchpad.reflection.configloader.data.GameConfig;
-import com.varunu28.scratchpad.reflection.configloader.data.UserInterfaceConfig;
 
 public class Main {
 

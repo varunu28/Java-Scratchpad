@@ -1,9 +1,9 @@
 package com.varunu28.scratchpad.reflection.jsonserializer;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 import com.varunu28.scratchpad.reflection.jsonserializer.data.Actor;
 import com.varunu28.scratchpad.reflection.jsonserializer.data.Movie;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 
 public class JsonSerializerRunner {
 
@@ -16,7 +16,7 @@ public class JsonSerializerRunner {
             "Lord of the Rings",
             8.8f,
             new String[] {"Fantasy", "Adventure"},
-            new Actor[]{actor1, actor2, actor3});
+            new Actor[] {actor1, actor2, actor3});
 
         String json = objectToJson(movie, 0);
         System.out.println(json);

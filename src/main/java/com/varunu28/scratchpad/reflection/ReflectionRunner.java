@@ -1,11 +1,11 @@
 package com.varunu28.scratchpad.reflection;
 
+import com.varunu28.scratchpad.reflection.web.ServerConfiguration;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Stream;
-import com.varunu28.scratchpad.reflection.web.ServerConfiguration;
 
 public class ReflectionRunner {
 

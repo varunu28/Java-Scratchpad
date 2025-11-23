@@ -4,6 +4,9 @@ import java.lang.reflect.Field;
 
 public class FieldSizeCalculator {
 
+    private static final long HEADER_SIZE = 12;
+    private static final long REFERENCE_SIZE = 4;
+
     public static void main(String[] args) {
         DemoClass demoClass = new DemoClass(1, "Hello", 1.0f, 2.0, 3L, (short) 4, (byte) 5);
         FieldSizeCalculator fieldSizeCalculator = new FieldSizeCalculator();
@@ -13,29 +16,6 @@ public class FieldSizeCalculator {
             e.printStackTrace();
         }
     }
-
-    static class DemoClass {
-        private int a;
-        private String b;
-        private float d;
-        private double e;
-        private long f;
-        private short g;
-        private byte h;
-
-        public DemoClass(int a, String b, float d, double e, long f, short g, byte h) {
-            this.a = a;
-            this.b = b;
-            this.d = d;
-            this.e = e;
-            this.f = f;
-            this.g = g;
-            this.h = h;
-        }
-    }
-
-    private static final long HEADER_SIZE = 12;
-    private static final long REFERENCE_SIZE = 4;
 
     public long sizeOfObject(Object input) throws IllegalAccessException {
         /**
@@ -59,7 +39,6 @@ public class FieldSizeCalculator {
         return size;
     }
 
-
     private long sizeOfPrimitiveType(Class<?> primitiveType) {
         if (primitiveType.equals(int.class)) {
             return 4;
@@ -80,5 +59,25 @@ public class FieldSizeCalculator {
     private long sizeOfString(String inputString) {
         int stringBytesSize = inputString.getBytes().length;
         return HEADER_SIZE + REFERENCE_SIZE + stringBytesSize;
+    }
+
+    static class DemoClass {
+        private int a;
+        private String b;
+        private float d;
+        private double e;
+        private long f;
+        private short g;
+        private byte h;
+
+        public DemoClass(int a, String b, float d, double e, long f, short g, byte h) {
+            this.a = a;
+            this.b = b;
+            this.d = d;
+            this.e = e;
+            this.f = f;
+            this.g = g;
+            this.h = h;
+        }
     }
 }

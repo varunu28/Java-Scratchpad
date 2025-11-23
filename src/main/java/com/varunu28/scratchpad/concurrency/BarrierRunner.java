@@ -7,7 +7,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BarrierRunner {
-    public static void main(String[] args) {
+    static void main() {
         int numberOfThreads = 200;
         List<Thread> threads = new ArrayList<>();
         Barrier barrier = new Barrier(numberOfThreads);
@@ -50,13 +50,7 @@ public class BarrierRunner {
         }
     }
 
-    public static class CoordinatedWorkRunner implements Runnable {
-
-        private final Barrier barrier;
-
-        public CoordinatedWorkRunner(Barrier barrier) {
-            this.barrier = barrier;
-        }
+    public record CoordinatedWorkRunner(Barrier barrier) implements Runnable {
 
         @Override
         public void run() {
