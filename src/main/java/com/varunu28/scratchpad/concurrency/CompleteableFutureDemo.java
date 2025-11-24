@@ -2,38 +2,61 @@ package com.varunu28.scratchpad.concurrency;
 
 import java.util.concurrent.CompletableFuture;
 
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+import static java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor;
+
 /**
  * A demo class to showcase the usage of CompleteableFuture in Java.
  */
 public class CompleteableFutureDemo {
 
     static void main() {
-        // basic chaining of completable futures
-        CompletableFuture<String> futureOne = new CompletableFuture<>();
+        ApiService apiService = new ApiService();
 
-        // Chaining futureOne to finalFuture so we can build a chain of operations
-        CompletableFuture<String> finalFuture = futureOne.thenApply(result -> {
-            System.out.println("intermediate result:" + result);
-            return "final result";
-        });
+        // Start 2 asynchronous tasks to fetch:
+        // - preferences followed by fetching bread based on preferences
+        // - cheese
+        CompletableFuture<ApiService.Preference> preferences = supplyAsync(
+            apiService::getPreferences, newVirtualThreadPerTaskExecutor());
+        CompletableFuture<String> cheese = supplyAsync(apiService::getCheese, newVirtualThreadPerTaskExecutor());
+        CompletableFuture<String> bread =
+            preferences.thenApplyAsync(
+                pref -> apiService.getBread(
+                    pref.breadType()), newVirtualThreadPerTaskExecutor());
 
-        // creating another CompleteableFuture to demonstrate thenCompose within a CompleteableFuture
-        futureOne.thenCompose(result -> CompletableFuture.completedFuture(result.toUpperCase()));
+        IO.println("Order Details: " + bread.join() + " with " + cheese.join());
+    }
 
-        System.out.println("Number of dependenets for futureOne: " + futureOne.getNumberOfDependents());
-        System.out.println("Number of dependenets for finalFuture: " + finalFuture.getNumberOfDependents());
+    static class ApiService {
 
-        finalFuture.whenComplete((result, ignored) -> System.out.println(result));
+        public ApiService() {}
 
-        new Thread(() -> {
+        private static void sleep(long durationInMillis) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(durationInMillis);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            futureOne.complete("Hello World");
-        }).start();
+        }
 
-        System.out.println("Main thread is running...");
+        public Preference getPreferences() {
+            sleep(1000);
+            IO.println("Fetched Preferences in thread: " + Thread.currentThread());
+            return new Preference("Wheat");
+        }
+
+        public String getBread(String breadType) {
+            sleep(2000);
+            IO.println("Fetched Bread in thread: " + Thread.currentThread());
+            return breadType + " Bread";
+        }
+
+        public String getCheese() {
+            sleep(1500);
+            IO.println("Fetched Cheese in thread: " + Thread.currentThread());
+            return "Fresh Cheddar Cheese";
+        }
+
+        record Preference(String breadType) {}
     }
 }
