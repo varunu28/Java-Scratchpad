@@ -9,17 +9,14 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <dependency>
-            <groupId>org.microhttp</groupId>
-            <artifactId>microhttp</artifactId>
-            <version>0.11</version>
-        </dependency>
+        <!-- Test Dependencies-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.11.0-M1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Kotlin Dependencies-->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -43,6 +40,7 @@
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <kotlin.version>2.0.20</kotlin.version>
+        <junit.version>5.14.1</junit.version>
     </properties>
     <repositories>
         <repository>
