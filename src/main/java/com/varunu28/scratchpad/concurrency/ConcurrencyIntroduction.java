@@ -10,7 +10,7 @@ public class ConcurrencyIntroduction {
     private static final String SOURCE_FILE = "src/main/resources/many-flowers.jpg";
     private static final String DESTINATION_FILE = "src/main/resources/many-flowers-out.jpg";
 
-    public static void main(String[] args) throws IOException {
+    static void main(String[] args) throws IOException {
         try {
             BufferedImage originalImage = ImageIO.read(new File(SOURCE_FILE));
             BufferedImage resultImage =
