@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.varunu28.scratchpad.concurrency.ApiService.blockingOperation;
+
 /**
  * Thread-per task model is helpful for scaling the throughput of IO-bound applications. But at the same time we need
  * to understand that Threads are expensive resources, and we cannot create an unbounded number of threads in the
@@ -42,15 +44,6 @@ public class IoBoundApplicationThreadPerTaskDemo {
                     }
                 });
             }
-        }
-    }
-
-    private static void blockingOperation() {
-        IO.println("Executing IO-bound task for thread: " + Thread.currentThread().getName());
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 }

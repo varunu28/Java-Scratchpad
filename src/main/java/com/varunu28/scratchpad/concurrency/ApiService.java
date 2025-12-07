@@ -30,4 +30,13 @@ public class ApiService {
     }
 
     public record Preference(String breadType) {}
+
+    public static void blockingOperation() {
+        IO.println("Executing IO-bound task for thread: " + Thread.currentThread());
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
