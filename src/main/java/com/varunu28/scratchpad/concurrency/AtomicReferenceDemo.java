@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import org.jetbrains.annotations.NotNull;
 
 public class AtomicReferenceDemo {
 
@@ -28,7 +27,6 @@ public class AtomicReferenceDemo {
         System.out.println("Standard Stack operation count: " + stack.getCounter());
     }
 
-    @NotNull
     private static List<Thread> getThreads(LockFreeStack<Integer> stack, Random random) {
         List<Thread> threads = new ArrayList<>();
         int numberOfPusherThreads = 2;
