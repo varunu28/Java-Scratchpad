@@ -11,6 +11,15 @@ public class ApiService {
         }
     }
 
+    public static void blockingOperation() {
+        IO.println("Executing IO-bound task for thread: " + Thread.currentThread());
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Preference getPreferences() {
         sleep(1000);
         IO.println("Fetched Preferences in thread: " + Thread.currentThread());
@@ -30,13 +39,4 @@ public class ApiService {
     }
 
     public record Preference(String breadType) {}
-
-    public static void blockingOperation() {
-        IO.println("Executing IO-bound task for thread: " + Thread.currentThread());
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
